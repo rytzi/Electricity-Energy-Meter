@@ -1,20 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gauges/gauges.dart';
 
 class GaugesWidget extends StatefulWidget {
   final String title;
   final String unit;
-  final double value;
   final double minValue;
   final double maxValue;
 
-  const GaugesWidget({Key? key, required this.title, required this.unit, required this.value, required this.minValue, required this.maxValue}) : super(key: key);
+
+  const GaugesWidget(
+      {Key? key,
+      required this.title,
+      required this.unit,
+      required this.minValue,
+      required this.maxValue})
+      : super(key: key);
 
   @override
   State<GaugesWidget> createState() => _GaugesWidgetState();
+
 }
 
 class _GaugesWidgetState extends State<GaugesWidget> {
+  //TODO: Remove value
+  double value = 8;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,15 +40,24 @@ class _GaugesWidgetState extends State<GaugesWidget> {
           ),
         ],
       ),
-      child: Column(
-        children: [
-          Spacer(),
-          Text(
-            widget.title,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontStyle: FontStyle.normal),
-          ),
-          RadialGauge(
+      child: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('data').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return Column(
+            children: [
+              Spacer(),
+              Text(
+                widget.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontStyle: FontStyle.normal),
+              ),
+              RadialGauge(
                 axes: [
                   RadialGaugeAxis(
                     color: Colors.white,
@@ -63,7 +82,8 @@ class _GaugesWidgetState extends State<GaugesWidget> {
                     ],
                     pointers: [
                       RadialNeedlePointer(
-                        value: widget.value,
+                        // TODO: Get firebase value
+                        value: value,
                         thicknessStart: 20,
                         thicknessEnd: 0,
                         length: 0.6,
@@ -93,12 +113,11 @@ class _GaugesWidgetState extends State<GaugesWidget> {
                         color: Colors.yellow,
                       ),
                       RadialGaugeSegment(
-                        minValue: widget.maxValue * .60,
-                        maxValue: widget.maxValue * .80,
-                        minAngle: 30,
-                        maxAngle: 90,
-                        color: Colors.orangeAccent
-                      ),
+                          minValue: widget.maxValue * .60,
+                          maxValue: widget.maxValue * .80,
+                          minAngle: 30,
+                          maxAngle: 90,
+                          color: Colors.orangeAccent),
                       RadialGaugeSegment(
                         minValue: widget.maxValue * .80,
                         maxValue: widget.maxValue,
@@ -110,13 +129,16 @@ class _GaugesWidgetState extends State<GaugesWidget> {
                   ),
                 ],
               ),
-          Text(
-            widget.value.toString() + widget.unit,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontStyle: FontStyle.normal),
-          ),
-          Spacer(),
-        ],
+              Text(
+                //TODO:change value
+                value.toString() + widget.unit,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontStyle: FontStyle.normal),
+              ),
+              Spacer(),
+            ],
+          );
+        },
       ),
     );
   }

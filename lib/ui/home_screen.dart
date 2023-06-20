@@ -1,6 +1,5 @@
 import 'package:electricity_energy_meter/widget/gauges_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -54,10 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20,
                         children: [
-                          GaugesWidget(value: 1, title: 'VRMS', unit: "V", minValue: 0, maxValue: 500,),
-                          GaugesWidget(value: 1, title: 'IRMS', unit: "A", minValue: 0, maxValue: 10,),
-                          GaugesWidget(value: 1, title: 'Power', unit: "W", minValue: 0, maxValue: 50,),
-                          GaugesWidget(value: 1, title: 'KWH', unit: "W", minValue: 0, maxValue: 10,),
+                          GaugesWidget(title: 'VRMS', unit: "V", minValue: 0, maxValue: 500,),
+                          GaugesWidget(title: 'IRMS', unit: "A", minValue: 0, maxValue: 10,),
+                          GaugesWidget(title: 'Power', unit: "W", minValue: 0, maxValue: 50,),
+                          GaugesWidget(title: 'KWH', unit: "W", minValue: 0, maxValue: 10,),
                         ],
                       ),
                     ),
@@ -70,29 +69,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-  //
-  // double _getVRMSData() {
-  //   setState(() {
-  //     double value = 10;
-  //     return value;
-  //   });
-  //   double value;
-  //
-  //   return value;
-  // }
-  // double _getIRMSData() {
-  //   double value;
-  //   value
-  //   return value;
-  // }
-  // double _getPowerData() {
-  //   double value;
-  //   value
-  //   return value;
-  // }
-  // double _getKWHData() {
-  //   double value;
-  //   value
-  //   return value;
-  // }
 }
