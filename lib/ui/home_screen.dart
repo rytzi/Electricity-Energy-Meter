@@ -54,10 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20,
                         children: [
-                          GaugesWidget(value: _getVRMSData(), title: 'VRMS', unit: "V", minValue: 0, maxValue: 500,),
-                          GaugesWidget(value: _getIRMSData(), title: 'IRMS', unit: "A", minValue: 0, maxValue: 10,),
-                          GaugesWidget(value: _getPowerData(), title: 'Power', unit: "W", minValue: 0, maxValue: 50,),
-                          GaugesWidget(value: _getKWHData(), title: 'KWH', unit: "W", minValue: 0, maxValue: 10,),
+                          GaugesWidget(value: 1, title: 'VRMS', unit: "V", minValue: 0, maxValue: 500,),
+                          GaugesWidget(value: 1, title: 'IRMS', unit: "A", minValue: 0, maxValue: 10,),
+                          GaugesWidget(value: 1, title: 'Power', unit: "W", minValue: 0, maxValue: 50,),
+                          GaugesWidget(value: 1, title: 'KWH', unit: "W", minValue: 0, maxValue: 10,),
                         ],
                       ),
                     ),
@@ -70,29 +70,29 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  double _getVRMSData() {
-    setState(() {
-      double value = 10;
-      return value;
-    });
-    double value;
-
-    return value;
-  }
-  double _getIRMSData() {
-    double value;
-    value
-    return value;
-  }
-  double _getPowerData() {
-    double value;
-    value
-    return value;
-  }
-  double _getKWHData() {
-    double value;
-    value
-    return value;
-  }
+  //
+  // double _getVRMSData() {
+  //   setState(() {
+  //     double value = 10;
+  //     return value;
+  //   });
+  //   double value;
+  //
+  //   return value;
+  // }
+  // double _getIRMSData() {
+  //   double value;
+  //   value
+  //   return value;
+  // }
+  // double _getPowerData() {
+  //   double value;
+  //   value
+  //   return value;
+  // }
+  // double _getKWHData() {
+  //   double value;
+  //   value
+  //   return value;
+  // }
 }

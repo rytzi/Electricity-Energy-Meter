@@ -1,8 +1,17 @@
 import 'package:electricity_energy_meter/ui/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: FirebaseOptions(
+    apiKey: "XXX",
+    appId: "XXX",
+    messagingSenderId: "XXX",
+    projectId: "XXX",
+  ),);
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
