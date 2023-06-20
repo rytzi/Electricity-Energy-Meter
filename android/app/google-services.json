@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "634926003640",
+    "firebase_url": "https://electricity-energy-meter-56b20-default-rtdb.firebaseio.com",
+    "project_id": "electricity-energy-meter-56b20",
+    "storage_bucket": "electricity-energy-meter-56b20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634926003640:android:77b31ca58b4836691b4b4d",
+        "android_client_info": {
+          "package_name": "com.ElectricityEnergyMeterPPG.electricity_energy_meter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634926003640-rn0e9rqmuk3d3rltiahh7i5tbdjrg5c1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3PjxtJZ5vGXc4tt8Hl26dbgSE93PP48I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634926003640-rn0e9rqmuk3d3rltiahh7i5tbdjrg5c1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
