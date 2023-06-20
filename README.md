@@ -2,4 +2,4 @@
 
 Microprocessor-Based Electricity Energy Meter using ESP32, Flutter and Firebase.
 
-Made by the PowerPuffGirls Ritzi, Anne, Hazel and Mariene.
+_Made by the PowerPuffGirls Ritzi, Anne, Hazel and Mariene._
