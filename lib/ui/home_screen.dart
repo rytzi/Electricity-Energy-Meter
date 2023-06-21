@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:electricity_energy_meter/widget/gauges_widget.dart';
 import 'package:flutter/material.dart';
+import '../function/firebaseGetter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,6 +11,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final _db = FirebaseFirestore.instance;
+  Future<List<ESP32Model>> getESP32Details() async {
+    final snapshot = await _db.collection("ESP32").get();
+    final ESP32Data = snapshot.docs.map((e) => ESP32Model.fromSnapshot(e)).toList();
+    return ESP32Data;
+  }
 
 
   @override
@@ -53,10 +62,51 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20,
                         children: [
-                          GaugesWidget(title: 'VRMS', unit: "V", minValue: 0, maxValue: 500,),
-                          GaugesWidget(title: 'IRMS', unit: "A", minValue: 0, maxValue: 10,),
-                          GaugesWidget(title: 'Power', unit: "W", minValue: 0, maxValue: 50,),
-                          GaugesWidget(title: 'KWH', unit: "W", minValue: 0, maxValue: 10,),
+                          StreamBuilder(
+                            stream: FirebaseFirestore.instance.collection('ESP32').snapshots(),
+                            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              List<Map<String, dynamic>?>? ESP32Data = snapshot.data?.docs.map((e) => e.data() as Map<String, dynamic>?).toList();
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black)),
+                                );
+                              }
+                              return GaugesWidget(title: 'VRMS', unit: "V", value: double.parse(ESP32Data![0].toString()), minValue: 0, maxValue: 500,);
+                            },
+                          ),
+                          StreamBuilder(
+                            stream: FirebaseFirestore.instance.collection('ESP32').snapshots(),
+                            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black)),
+                                );
+                              }
+                              return GaugesWidget(title: 'IRMS', unit: "A", value: 0, minValue: 0, maxValue: 10,);
+                            },
+                          ),
+                          StreamBuilder(
+                            stream: FirebaseFirestore.instance.collection('ESP32').snapshots(),
+                            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black)),
+                                );
+                              }
+                              return GaugesWidget(title: 'Power', unit: "W", value: 0, minValue: 0, maxValue: 50,);
+                            },
+                          ),
+                          StreamBuilder(
+                            stream: FirebaseFirestore.instance.collection('ESP32').snapshots(),
+                            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black)),
+                                );
+                              }
+                              return GaugesWidget(title: 'KWH', unit: "W", value: 0, minValue: 0, maxValue: 10,);
+                            },
+                          ),
                         ],
                       ),
                     ),

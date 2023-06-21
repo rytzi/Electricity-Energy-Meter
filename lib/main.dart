@@ -6,9 +6,9 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: FirebaseOptions(
     apiKey: "XXX",
-    appId: "XXX",
-    messagingSenderId: "XXX",
-    projectId: "XXX",
+    appId: "1:634926003640:android:77b31ca58b4836691b4b4d",
+    messagingSenderId: "634926003640",
+    projectId: "electricity-energy-meter-56b20",
   ),);
 
   runApp(MyApp());
