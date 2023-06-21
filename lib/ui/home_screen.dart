@@ -13,12 +13,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   final _db = FirebaseFirestore.instance;
-  Future<List<ESP32Model>> getESP32Details() async {
+  // Future<List<ESP32Model>> getESP32Details() async {
+  //   final snapshot = await _db.collection("ESP32").get();
+  //   final ESP32Data = snapshot.docs.map((e) => ESP32Model.fromSnapshot(e)).toList();
+  //   return ESP32Data;
+  // }
+  Future<ESP32Model> getESP32Details() async {
     final snapshot = await _db.collection("ESP32").get();
-    final ESP32Data = snapshot.docs.map((e) => ESP32Model.fromSnapshot(e)).toList();
+    final ESP32Data = snapshot.docs.map((e) => ESP32Model.fromSnapshot(e)).single;
     return ESP32Data;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,46 +69,61 @@ class _HomeScreenState extends State<HomeScreen> {
                           StreamBuilder(
                             stream: FirebaseFirestore.instance.collection('ESP32').snapshots(),
                             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
                               List<Map<String, dynamic>?>? ESP32Data = snapshot.data?.docs.map((e) => e.data() as Map<String, dynamic>?).toList();
+                              double _value = ESP32Data![0]?["VRMS"];
+
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black)),
                                 );
                               }
-                              return GaugesWidget(title: 'VRMS', unit: "V", value: double.parse(ESP32Data![0].toString()), minValue: 0, maxValue: 500,);
+                              return GaugesWidget(title: 'VRMS', unit: "V", value: _value, minValue: 0, maxValue: 500,);
                             },
                           ),
                           StreamBuilder(
                             stream: FirebaseFirestore.instance.collection('ESP32').snapshots(),
                             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
+                              List<Map<String, dynamic>?>? ESP32Data = snapshot.data?.docs.map((e) => e.data() as Map<String, dynamic>?).toList();
+                              double _value = ESP32Data![0]?["IRMS"];
+
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black)),
                                 );
                               }
-                              return GaugesWidget(title: 'IRMS', unit: "A", value: 0, minValue: 0, maxValue: 10,);
+                              return GaugesWidget(title: 'IRMS', unit: "A", value: _value, minValue: 0, maxValue: 10,);
                             },
                           ),
                           StreamBuilder(
                             stream: FirebaseFirestore.instance.collection('ESP32').snapshots(),
                             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
+                              List<Map<String, dynamic>?>? ESP32Data = snapshot.data?.docs.map((e) => e.data() as Map<String, dynamic>?).toList();
+                              double _value = ESP32Data![0]?["Power"];
+
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black)),
                                 );
                               }
-                              return GaugesWidget(title: 'Power', unit: "W", value: 0, minValue: 0, maxValue: 50,);
+                              return GaugesWidget(title: 'Power', unit: "W", value: _value, minValue: 0, maxValue: 50,);
                             },
                           ),
                           StreamBuilder(
                             stream: FirebaseFirestore.instance.collection('ESP32').snapshots(),
                             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
+                              List<Map<String, dynamic>?>? ESP32Data = snapshot.data?.docs.map((e) => e.data() as Map<String, dynamic>?).toList();
+                              double _value = ESP32Data![0]?["KWH"];
+
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black)),
                                 );
                               }
-                              return GaugesWidget(title: 'KWH', unit: "W", value: 0, minValue: 0, maxValue: 10,);
+                              return GaugesWidget(title: 'KWH', unit: "W", value: _value, minValue: 0, maxValue: 10,);
                             },
                           ),
                         ],
